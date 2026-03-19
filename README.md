@@ -94,3 +94,77 @@ Each recommendation includes:
 ---
 
 ## 🔄 Decision Pipeline
+Input Data
+→ Filter (rating, availability)
+→ Price Calculation (with coupon inflation)
+→ Coupon Usage Decision
+→ Pickup vs Delivery Decision
+→ Diversity Check (3-day constraint)
+→ Ranking
+→ Meal Composition (drink + dessert)
+→ Final Recommendation
+
+
+---
+
+## 🧪 Demo Code (Simplified)
+
+```python
+stores = [
+    {"name": "外婆家", "price": 27, "rating": 4.8, "time": 15, "distance": 150},
+    {"name": "和合谷", "price": 24, "rating": 4.8, "time": 31, "distance": 300},
+    {"name": "西少爷", "price": 24, "rating": 4.6, "time": 23, "distance": 150},
+]
+
+def choose_store(stores):
+    best = None
+    best_score = float("inf")
+
+    for s in stores:
+        if s["rating"] < 4.5:
+            continue
+
+        score = s["price"] + s["time"] * 0.1
+
+        if s["distance"] <= 200:
+            score -= 2
+
+        if score < best_score:
+            best_score = score
+            best = s
+
+    return best
+
+result = choose_store(stores)
+print("Today's Recommendation:", result["name"])
+
+## 📊 Example Output
+
+Today's Recommendation:
+
+Main Dish: 外婆家  
+Price: ¥27  
+Rating: 4.8  
+Delivery Time: 15 min  
+Method: Delivery  
+
+Drink: Iced Lemon Tea (balances spicy flavor)  
+Dessert: Optional  
+
+Reason:
+- Highest rating among candidates  
+- Fastest delivery time  
+- Not selected in the past 3 days  
+
+## 💡 Key Insight
+
+LobsterAgent models food ordering as:
+
+> A multi-objective decision problem under uncertainty
+
+It balances:
+- Cost efficiency  
+- Time efficiency  
+- Distance constraints  
+- User behavior  
+- Experience optimization  
