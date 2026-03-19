@@ -94,17 +94,23 @@ Each recommendation includes:
 ---
 
 ## 🔄 Decision Pipeline
-Input Data
-→ Filter (rating, availability)
-→ Price Calculation (with coupon inflation)
-→ Coupon Usage Decision
-→ Pickup vs Delivery Decision
-→ Diversity Check (3-day constraint)
-→ Ranking
-→ Meal Composition (drink + dessert)
-→ Final Recommendation
-
-
+```text
+[Input] Raw Store Data
+    ↓
+[Filter] Rating ≥ 4.5
+    ↓
+[Pricing] Apply coupon inflation
+    ↓
+[Decision] Pickup vs Delivery
+    ↓
+[Constraint] 3-day diversity check
+    ↓
+[Ranking] Score optimization
+    ↓
+[Composition] Add drink & dessert
+    ↓
+[Output] Final Recommendation
+```
 ---
 
 ## 🧪 Demo Code (Simplified)
@@ -141,21 +147,36 @@ print("Today's Recommendation:", result["name"])
 ---
 ## 📊 Example Output
 
-Today's Recommendation:
+```text
+[LobsterAgent Decision Log]
 
-Main Dish: 外婆家  
-Price: ¥27  
-Rating: 4.8  
-Delivery Time: 15 min  
-Method: Delivery  
+Evaluating candidates...
+✔ 外婆家 → rating 4.8, time 15 min, distance 150m
+✔ 和合谷 → rating 4.8, time 31 min
+✔ 西少爷 → rating 4.6
 
-Drink: Iced Lemon Tea (balances spicy flavor)  
-Dessert: Optional  
+Applying constraints...
+✔ Rating ≥ 4.5
+✔ Not ordered in last 3 days
+
+Applying pricing model...
+✔ Coupon applied
+✔ Pickup advantage considered
+
+Final decision:
+
+Main Dish: 外婆家
+Price: ¥27
+Method: Delivery
+
+Drink: Iced Lemon Tea
+Dessert: Optional
+```
 
 Reason:
-- Highest rating among candidates  
-- Fastest delivery time  
-- Not selected in the past 3 days  
+- Optimal trade-off between price and time
+- High rating
+- Satisfies diversity constraint
 ---
 ## 💡 Key Insight
 
