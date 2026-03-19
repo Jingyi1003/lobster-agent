@@ -138,7 +138,7 @@ def choose_store(stores):
 result = choose_store(stores)
 print("Today's Recommendation:", result["name"])
 ```
-
+---
 ## 📊 Example Output
 
 Today's Recommendation:
@@ -156,7 +156,7 @@ Reason:
 - Highest rating among candidates  
 - Fastest delivery time  
 - Not selected in the past 3 days  
-
+---
 ## 💡 Key Insight
 
 LobsterAgent models food ordering as:
